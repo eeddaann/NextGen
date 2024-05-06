@@ -1,4 +1,4 @@
-import { convertAudioBufferToWavBlob, downloadBlob, initButtonListener } from './utils.js';
+import { convertAudioBufferToWavBlob, uploadBlob, initButtonListener } from './utils.js';
 
 navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
   // Initialize variables now that media devices are ready
@@ -24,7 +24,7 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
 
     const wavBlob = await convertAudioBufferToWavBlob(audioBuffer);
 
-    downloadBlob(wavBlob, 'recording');
+    uploadBlob(wavBlob, 'recording');
     audioChunks = []; // Clear cached chunks
   });
 });

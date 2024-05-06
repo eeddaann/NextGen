@@ -34,8 +34,24 @@ export function downloadBlob(blob, name) {
       view: window,
     })
   );
+}
 
-  document.body.removeChild(link);
+export async function uploadBlob(audioBlob, perfix) {
+  const fileType = "wav"
+  const formData = new FormData();
+  formData.append('audio_data', audioBlob, 'file');
+  formData.append('type', fileType || 'mp3');
+
+  // Your server endpoint to upload audio:
+  const apiUrl = "http://localhost:5000/upload/audio/"+perfix;
+
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    cache: 'no-cache',
+    body: formData
+  });
+
+  return response.json();
 }
 
 export function initButtonListener(mediaRecorder) {
