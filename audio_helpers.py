@@ -24,10 +24,11 @@ def save_spectrogram(path):
     plt.ylabel('Frequency [Hz]')
     plt.ylim(ymin=3)
     plt.xlabel('Time [sec]')
-    plt.title("peak frequency found at %.3f[Hz]"%(extract_peak_frequency(samples, sample_rate)))
+    peak_freq = extract_peak_frequency(samples, sample_rate)
+    plt.title("peak frequency found at %.3f[Hz]"%(peak_freq))
     plt.yscale('symlog')
     img = io.BytesIO()
     plt.savefig(img, format = 'png')
     img.seek(0)
     plot_data = urllib.parse.quote(base64.b64encode(img.read()).decode())
-    return plot_data
+    return plot_data, peak_freq

@@ -6,13 +6,14 @@ from flask import (
     request,
     render_template
 )
+import os
 from flask_qrcode import QRcode
 import io
 import random
 from flask import Response
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
-
+import db_helpers
 from OpenSSL import SSL
 
 # Function that create the app 
@@ -43,7 +44,12 @@ def create_app(test_config=None ):
         # Save it on your local disk
         target_path = ("output/%s" % filename)
         audio_file.save(target_path)
-        plot_data = save_spectrogram(target_path)
+        plot_data, peak_freq= save_spectrogram(target_path)
+
+        #save data
+        if not os.path.exists('audio.db'):
+            db_helpers.create_table()
+        db_helpers.insert_record(request.remote_addr,[peak_freq])
 
         return jsonify({"plot":plot_data})
         
