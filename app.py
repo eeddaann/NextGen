@@ -6,7 +6,7 @@ from flask import (
     request,
     render_template
 )
-
+from flask_qrcode import QRcode
 import io
 import random
 from flask import Response
@@ -19,11 +19,16 @@ from OpenSSL import SSL
 def create_app(test_config=None ):
     # create and configure the app
     app = Flask(__name__, static_url_path='/static')
+    QRcode(app)
 
     # Simple route
     @app.route('/')
     def record():
         return render_template('index.html')
+    
+    @app.route('/qr')
+    def qr():
+        return render_template('qr.html')
     
     @app.route('/upload/audio/<perfix>', methods=['POST'])
     def uploadAudio(perfix):
