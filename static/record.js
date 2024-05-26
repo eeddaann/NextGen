@@ -24,7 +24,12 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
 
     const wavBlob = await convertAudioBufferToWavBlob(audioBuffer);
 
-    uploadBlob(wavBlob, 'recording');
+    const parsedValue = await uploadBlob(wavBlob, 'recording');
+    function create_img() {
+      document.body.innerHTML += '<img src="data:image/png;base64, '+parsedValue.plot+'";width="1000" height="500" alt="graph">'
+    }
+    create_img()
+
     audioChunks = []; // Clear cached chunks
   });
 });

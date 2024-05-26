@@ -1,6 +1,6 @@
 export async function convertAudioBufferToWavBlob(audioBuffer) {
   return new Promise(function (resolve) {
-    var worker = new Worker('./wave-worker.js');
+    var worker = new Worker('./static/wave-worker.js');
 
     worker.onmessage = function (e) {
       var blob = new Blob([e.data.buffer], { type: 'audio/wav' });
@@ -43,14 +43,13 @@ export async function uploadBlob(audioBlob, perfix) {
   formData.append('type', fileType || 'mp3');
 
   // Your server endpoint to upload audio:
-  const apiUrl = "http://localhost:5000/upload/audio/"+perfix;
+  const apiUrl = "upload/audio/"+perfix;
 
   const response = await fetch(apiUrl, {
     method: 'POST',
     cache: 'no-cache',
     body: formData
   });
-
   return response.json();
 }
 
