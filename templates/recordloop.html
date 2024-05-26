@@ -7,6 +7,9 @@
     <div class="header">
       <h1>NextGen Hackathon</h1>
     </div>
-    <img src="{{ qrcode('https://'+request.host.split(':')[0]+'/loop')  }}">
-</body>
+    <div class="center">
+      <h1 id="counter">No files uploaded yet</h1>
+    </div>
+    <script type="module" src="static/recordloop.js"></script>
+  </body>
 </html>

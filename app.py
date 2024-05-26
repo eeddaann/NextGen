@@ -27,6 +27,10 @@ def create_app(test_config=None ):
     def record():
         return render_template('index.html')
     
+    @app.route('/loop')
+    def recordloop():
+        return render_template('recordloop.html')
+    
     @app.route('/qr')
     def qr():
         return render_template('qr.html')
