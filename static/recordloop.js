@@ -5,7 +5,15 @@ import { convertAudioBufferToWavBlob, uploadBlob, initButtonListener } from './u
   //const mediaRecorder = new MediaRecorder(stream);
   //let audioChunks = [];
   //initButtonListener(mediaRecorder);
-
+  function GetPrefix() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if(urlParams.has('exp_input')){
+      return urlParams.get('exp_input')
+    } else {
+      return 'recording'
+    }
+  }
   // When the recording has stopped, process and download our audio
   async function sendToServer(webaBlob) {
 
@@ -18,7 +26,7 @@ import { convertAudioBufferToWavBlob, uploadBlob, initButtonListener } from './u
 
     const wavBlob = await convertAudioBufferToWavBlob(audioBuffer);
 
-    const parsedValue = await uploadBlob(wavBlob, 'recording');
+    const parsedValue = await uploadBlob(wavBlob, GetPrefix());
     cnt+=1;
     document.getElementById("counter").innerHTML = cnt.toString() + " Files Uploaded!";
     function create_img() {

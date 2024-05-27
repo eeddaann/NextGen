@@ -7,6 +7,11 @@
     <div class="header">
       <h1>NextGen Hackathon</h1>
     </div>
-    <img src="{{ qrcode('https://'+request.host.split(':')[0]+'/loop')  }}">
+    <div style="width: 33%; float: left">
+      <h3>record loop 🔁</h3>
+      <a href="">
+        <img src="{{ qrcode('https://'+request.host.split(':')[0]+'/loop')  }}">
+      </a>
+  </div>
 </body>
 </html>
